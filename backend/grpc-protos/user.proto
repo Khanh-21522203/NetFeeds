@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+option csharp_namespace = "UserService";
+
+package UserService;
+
+import "google/protobuf/timestamp.proto";
+
+
+service GoFeedService{
+
+    rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse) {}
+    rpc CreateSession(CreateSessionRequest) returns (CreateSessionResponse) {}
+
+    rpc CreateFollow(CreateFollowRequest) returns (CreateFollowResponse) {}
+    rpc GetFollowerCountOfAccount(GetFollowerCountOfAccountRequest) returns (GetFollowerCountOfAccountResponse) {}
+    rpc GetFollowersOfAccount(GetFollowersOfAccountRequest) returns (GetFollowersOfAccountResponse) {}
+    rpc GetFollowingCountOfAccount(GetFollowingCountOfAccountRequest) returns (GetFollowingCountOfAccountResponse) {}
+    rpc GetFollowingsOfAccount(GetFollowingsOfAccountRequest) returns (GetFollowingsOfAccountResponse) {}
+    rpc DeleteFollow(DeleteFollowRequest) returns (DeleteFollowResponse) {}
+
+}
+
+message Account {
+    uint64 id = 1;
+    string account_name = 2;
+}
+
+message Follow {
+    uint64 account_id = 1;
+    uint64 following_id = 2;
+}
+
+message CreateAccountRequest {
+    string account_name = 1;
+    string password = 2;
+}
+message CreateAccountResponse {
+    uint64 account_id = 1;
+}
+message CreateSessionRequest {
+    string account_name = 1;
+    string password = 2;
+}
+message CreateSessionResponse {
+    uint64 account_id = 1;
+}
+
+message CreateFollowRequest{
+    uint64 following_id = 1;
+}
+message CreateFollowResponse{
+
+}
+message GetFollowerCountOfAccountRequest{
+    uint64 account_id = 1;
+}
+message GetFollowerCountOfAccountResponse{
+    uint64 follower_count = 1;
+}
+message GetFollowersOfAccountRequest{
+    uint64 account_id = 1;
+}
+message GetFollowersOfAccountResponse{
+    repeated Account follower_list = 1;
+}
+message GetFollowingCountOfAccountRequest{
+    uint64 account_id = 1;
+}
+message GetFollowingCountOfAccountResponse{
+    uint64 following_count = 1;
+}
+message GetFollowingsOfAccountRequest {
+    uint64 account_id = 1;
+}
+message GetFollowingsOfAccountResponse{
+    repeated Account following_list = 1;
+}
+message DeleteFollowRequest{
+    uint64 following_id = 1;
+}
+message DeleteFollowResponse{
+    
+}

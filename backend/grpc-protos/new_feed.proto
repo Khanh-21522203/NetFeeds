@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option csharp_namespace = "NewFeedService";
+
+package NewFeedService;
+
+import "google/protobuf/timestamp.proto";
+
+
+service NewFeedService{
+
+    rpc GetNewFeeds(GetNewFeedsRequest) returns (GetNewFeedsResponse) {}
+}
+
+message Post {
+    uint64 id = 1;
+    uint64 account_id = 2;
+    string content = 3;
+}
+
+message GetNewFeedsRequest {
+    uint64 account_id = 1;
+}
+message GetNewFeedsResponse {
+    repeated Post post_list = 1;
+}

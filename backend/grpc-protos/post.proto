@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+option csharp_namespace = "PostService";
+
+package PostService;
+
+import "google/protobuf/timestamp.proto";
+
+
+service PostService{
+
+    rpc CreatePost(CreatePostRequest) returns (CreatePostResponse) {}
+    rpc GetPostByID(GetPostByIDRequest) returns (GetPostByIDResponse) {}
+    rpc GetPostOfAccount(GetPostOfAccountRequest) returns (GetPostOfAccountResponse) {}
+    rpc UpdatePost(UpdatePostRequest) returns (UpdatePostResponse) {}
+
+    rpc CreateLike(CreateLikeRequest) returns (CreateLikeResponse) {}
+    rpc GetLikeCountOfPost(GetLikeCountOfPostRequest) returns (GetLikeCountOfPostResponse) {}
+    rpc GetLikeAccountsOfPost(GetLikeAccountsOfPostRequest) returns (GetLikeAccountsOfPostResponse) {}
+    rpc DeleteLike(DeleteLikeRequest) returns (DeleteLikeResponse) {}
+
+    rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse) {}
+    rpc GetCommentCountOfPost(GetCommentCountOfPostRequest) returns (GetCommentCountOfPostResponse) {}
+    rpc GetCommentsOfPost(GetCommentsOfPostRequest) returns (GetCommentsOfPostResponse) {}
+    rpc UpdateComment(UpdateCommentRequest) returns (UpdateCommentResponse) {}
+    rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse) {}
+
+}
+
+message Account {
+    uint64 id = 1;
+    string account_name = 2;
+}
+
+message Post {
+    uint64 id = 1;
+    uint64 account_id = 2;
+    string content = 3;
+}
+
+message Comment {
+    uint64 comment_id = 1;
+    uint64 account_id = 2;
+    uint64 post_id = 3;
+    string content = 4;
+    google.protobuf.Timestamp created_at = 5;
+}
+
+message CreatePostRequest {
+    string content = 1;
+}
+message CreatePostResponse {
+    uint64 post_id = 1;
+}
+message GetPostByIDRequest {
+    uint64 post_id = 1;
+}
+message GetPostByIDResponse {
+    Post post = 1;
+}
+message GetPostOfAccountRequest {
+    uint64 account_id = 1;
+}
+message GetPostOfAccountResponse {
+    repeated Post post_list = 1;
+}
+message UpdatePostRequest {
+    Post post = 1;
+}
+message UpdatePostResponse {}
+
+
+message CreateLikeRequest {
+    uint64 post_id = 1;
+}
+message CreateLikeResponse {}
+message GetLikeCountOfPostRequest {
+    uint64 post_id = 1;
+}
+message GetLikeCountOfPostResponse{
+    uint64 like_count = 1;
+}
+message GetLikeAccountsOfPostRequest{
+    uint64 post_id = 1;
+}
+message GetLikeAccountsOfPostResponse{
+    repeated Account account_list = 1;
+}
+message DeleteLikeRequest{
+    uint64 post_id = 1;
+}
+message DeleteLikeResponse{}
+
+
+
+message CreateCommentRequest{
+    uint64 post_id = 1;
+    string content = 2;
+}
+message CreateCommentResponse{
+    uint64 comment_id = 1;
+}
+message GetCommentCountOfPostRequest{
+    uint64 post_id = 1;
+}
+message GetCommentCountOfPostResponse{
+    uint64 comment_count = 1;
+}
+message GetCommentsOfPostRequest{
+    uint64 post_id = 1;
+}
+message GetCommentsOfPostResponse{
+    repeated Comment comment_list = 1;
+}
+message UpdateCommentRequest{
+    Comment comment = 1;
+}
+message UpdateCommentResponse{
+    uint64 comment_id = 1;
+}
+message DeleteCommentRequest{
+    uint64 comment_id = 1;
+}
+message DeleteCommentResponse{}
